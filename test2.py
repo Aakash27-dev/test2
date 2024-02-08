@@ -29,6 +29,7 @@ def main():
 
     if uploaded_file is not None:
         # Display the uploaded input image
+        
         input_image = Image.open(uploaded_file)
 
         # Save the input image to the input folder
@@ -38,31 +39,20 @@ def main():
         # Display input and output images side by side
         col1, col2 = st.columns(2)
 
-        # Set the scaling factor (increase or decrease by the same ratio)
-        scaling_factor = st.slider("Scaling Factor", 0.1, 3.0, 1.0, 0.1)
-
-        # Calculate new width and height for the original input image
-        original_width, original_height = input_image.size
-        input_image_width = int(original_width * scaling_factor)
-        input_image_height = int(original_height * scaling_factor)
-
         with col1:
             st.subheader("Uploaded Image:")
-            st.image(input_image, caption="Uploaded Input Image", use_column_width=True, width=input_image_width)
+            st.image(input_image, caption="Uploaded Input Image", use_column_width=True, width=True)
 
         # Process the image when the "Process Image" button is clicked
         if st.button("Process Image"):
             # Process the image
             output_image = process_image(input_image)
 
-            # Calculate new width and height for the processed output image
-            processed_width, processed_height = output_image.size
-            output_image_width = int(processed_width * scaling_factor)
-            output_image_height = int(processed_height * scaling_factor)
+
 
             with col2:
                 st.subheader("Processed Image:")
-                st.image(output_image, caption="Processed Output Image", use_column_width=True, width=output_image_width)
+                st.image(output_image, caption="Processed Output Image", use_column_width=True, width=True)
 
             # Save the output image to the output folder
             output_filename = os.path.join(output_dir, f"output_{len(os.listdir(output_dir)) + 1}.png")
